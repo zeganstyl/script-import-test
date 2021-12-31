@@ -45,7 +45,11 @@ fun main() {
             }
         }
     }
-    val evaluationConfiguration: ScriptEvaluationConfiguration? = null
+
+    val evaluationConfiguration = ScriptEvaluationConfiguration {
+        enableScriptsInstancesSharing()
+    }
+
     BasicJvmScriptingHost().eval(mainScript, compilationConfiguration, evaluationConfiguration).throwOnFailure()
 }
 
