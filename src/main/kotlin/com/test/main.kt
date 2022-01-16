@@ -10,7 +10,9 @@ import kotlin.script.experimental.jvmhost.createJvmCompilationConfigurationFromT
 import kotlin.script.templates.standard.SimpleScriptTemplate
 
 fun main() {
-    val mainScript = StringScriptSource("sharedVar += 1\nprintln(\"sharedVar == \$sharedVar\")", "main.kts")
+    val mainName = "main.kt"
+
+    val mainScript = StringScriptSource("sharedVar += 1\nprintln(\"sharedVar == \$sharedVar\")", mainName)
 
     val userHome = System.getProperty("user.home")
 
@@ -34,7 +36,7 @@ fun main() {
         refineConfiguration {
             beforeCompiling { ctx ->
                 when (ctx.script.name) {
-                    "main.kts" -> ScriptCompilationConfiguration(ctx.compilationConfiguration) {
+                    mainName -> ScriptCompilationConfiguration(ctx.compilationConfiguration) {
                         importScripts(middleScript, commonScript)
                     }
                     "diamondImportMiddle.kts" -> ScriptCompilationConfiguration(ctx.compilationConfiguration) {
